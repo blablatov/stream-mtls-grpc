@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: tls-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tls-service
+  template:
+    metadata:
+      labels:
+        app: tls-service
+    spec:
+      containers:
+      - name: tls-service
+        image: ./tls-service
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 50051
+          name: grpc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: net-tls-service
+spec:
+  selector:
+    app: tls-service
+  ports:
+  - port: 50051
+    targetPort: 50051
+    name: grpc
+  type: NodePort
+

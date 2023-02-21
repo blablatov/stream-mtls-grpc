@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tls-client
+spec:
+  completions: 5
+  parallelism: 10
+  template:
+    spec:
+      containers:
+      - name: tls-client
+        image: ./tls-client
+      restartPolicy: Never
+  backoffLimit: 4
