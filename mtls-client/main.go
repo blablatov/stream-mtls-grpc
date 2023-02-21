@@ -2,6 +2,9 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
+	"crypto/x509"
+	"io/ioutil"
 	"log"
 	"path/filepath"
 	"time"
@@ -81,9 +84,9 @@ func main() {
 	c := pb.NewProductInfoClient(conn)
 
 	// Contact the server and print out its response.
-	name := "Sumsung S99"
-	description := "Samsung Galaxy S10 is the latest smart phone, launched in February 2023"
-	price := float32(799.0)
+	name := "Sumsung S9999"
+	description := "Samsung Galaxy S9999 is the latest smart phone, launched in February 2039"
+	price := float32(7777.0)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	r, err := c.AddProduct(ctx, &pb.Product{Name: name, Description: description, Price: price}, grpc.UseCompressor(gzip.Name))
