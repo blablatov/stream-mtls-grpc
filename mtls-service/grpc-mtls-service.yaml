@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: tls-service
+  name: mtls-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tls-service
+      app: mtls-service
   template:
     metadata:
       labels:
-        app: tls-service
+        app: mtls-service
     spec:
       containers:
-      - name: tls-service
-        image: ./tls-service
+      - name: mtls-service
+        image: ./mtls-service
         resources:
           limits:
             memory: "128Mi"
@@ -26,10 +26,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: net-tls-service
+  name: net-mtls-service
 spec:
   selector:
-    app: tls-service
+    app: mtls-service
   ports:
   - port: 50051
     targetPort: 50051

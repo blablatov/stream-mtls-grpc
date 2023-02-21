@@ -6,7 +6,7 @@
 (Conventional test that starts a gRPC client test the service with RPC.Before his execute run grpc-server):      
 
 ```shell script
-./tls-service/tls-service
+./mtls-service/mtls-service
 ```
 
 Для тестирования клиента, без подключения к серверу, выполнить сгенерированный тестовый код.      
@@ -21,13 +21,13 @@
 Создание Docker контейнера для gRPC-клиента (build container of client):    
 
 ```shell script
-docker build -t tls-client .
+docker build -t mtls-client .
 ```
 
 Развернуть задание с клиентским gRPC-приложением:    
 
 ```shell script
-kubectl apply -f grpc-tls-client.yaml
+kubectl apply -f grpc-mtls-client.yaml
 ```
 
 

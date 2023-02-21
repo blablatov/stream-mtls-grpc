@@ -9,6 +9,7 @@ replace github.com/blablatov/stream-mtls-grpc/mockups => ./mockups
 require (
 	github.com/blablatov/stream-tls-grpc v0.0.0-20230219170727-7d2f5c5bfbff
 	github.com/gofrs/uuid v4.4.0+incompatible
+	github.com/golang/mock v1.6.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	golang.org/x/oauth2 v0.5.0
 	google.golang.org/grpc v1.53.0

@@ -1,3 +1,6 @@
+// Testing remote functions without using network
+// Модульное тестирование бизнес-логики удаленных функций без использования сети
+
 package main
 
 import (
@@ -7,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	pb "github.com/blablatov/stream-tls-grpc/tls-proto"
+	pb "github.com/blablatov/stream-mtls-grpc/mtls-proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/test/bufconn"
@@ -44,8 +47,7 @@ func getBufDialer(listener *bufconn.Listener) func(context.Context, string) (net
 }
 
 // Initialization of BufConn
-// Package bufconn provides a net
-// Conn implemented by a buffer and related dialing and listening functionality
+// Package bufconn provides a net. Conn implemented by a buffer
 // Реализует имитацию запуска сервера на реальном порту с использованием буфера
 func initGRPCServerBuffConn() {
 	listener = bufconn.Listen(bufSize)
@@ -61,6 +63,7 @@ func initGRPCServerBuffConn() {
 }
 
 // Conventional test that starts a gRPC server and client test the service with RPC
+// Обычный тест, запускает сервер gRPC, клиент проверяет службу с помощью RPC
 func TestServer_AddProduct(t *testing.T) {
 	// Starting a conventional gRPC server runs on HTTP2
 	// Запускаем стандартный gRPC-сервер поверх HTTP/2
@@ -99,9 +102,9 @@ func TestServer_AddProductBufConn(t *testing.T) {
 	c := pb.NewProductInfoClient(conn)
 
 	// Contact the server and print out its response.
-	name := "Sumsung S10"
-	description := "Samsung Galaxy S10 is the latest smart phone, launched in February 2019"
-	price := float32(700.0)
+	name := "Sumsung S999"
+	description := "Samsung Galaxy S999 is the latest smart phone, launched in February 2029"
+	price := float32(777.0)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	r, err := c.AddProduct(ctx, &pb.Product{Name: name, Description: description, Price: price})
@@ -127,7 +130,7 @@ func BenchmarkServer_AddProductBufConn(b *testing.B) {
 		// Contact the server and print out its response.
 		name := "Sumsung S999"
 		description := "Samsung Galaxy S10 is the latest smart phone, launched in February 2029"
-		price := float32(99999.0)
+		price := float32(777.0)
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
 		r, err := c.AddProduct(ctx, &pb.Product{Name: name, Description: description, Price: price})

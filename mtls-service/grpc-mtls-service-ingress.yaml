@@ -5,12 +5,12 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-  name: grpc-tls-service-ingress
+  name: grpc-mtls-service-ingress
 spec:
   rules:
-  - host: net-tls-service
+  - host: net-mtls-service
     http:
       paths:
       - backend:
-          serviceName: net-tls-service
+          serviceName: net-mtls-service
           servicePort: grpc
