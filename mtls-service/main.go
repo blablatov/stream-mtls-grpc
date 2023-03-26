@@ -36,7 +36,8 @@ func main() {
 	log.SetPrefix("Server event: ")
 	log.SetFlags(log.Lshortfile)
 
-	// Считываем и анализируем открытый/закрытый ключи и создаем сертификат, чтобы включить TLS
+	// Read and analyze opened/closed keys, creates certificate to TLS
+	// Считываем и анализируем открытый/закрытый ключи, создаем сертификат, чтобы включить TLS
 	cert, err := tls.LoadX509KeyPair(crtFile, keyFile)
 	if err != nil {
 		log.Fatalf("failed to load key pair: %s", err)
@@ -75,24 +76,28 @@ func main() {
 		)),
 	}
 
+	// Creates new gRPC-server, send him auth data
 	// Создаем новый экземпляр gRPC-сервера, передавая ему аутентификационные данные
 	s := grpc.NewServer(opts...)
+
+	// Registers created service to gRPC-server via generated AP
 	// Регистрируем реализованный сервис на только что созданном gRPCсервере с помощью сгенерированных AP
 	pb.RegisterProductInfoServer(s, &server{})
 
-	lis, err := net.Listen("tcp", port) // Начинаем прослушивать TCP-соединение на порту 50051.
+	lis, err := net.Listen("tcp", port) // Listen of port. Начинаем прослушивать порт 50051.
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	log.Printf("Starting gRPC listener on port " + port)
 
-	// Привязываем gRPC-сервер к прослушивателю и ждем появления сообщений на порту 50051.
+	// Bonding gRPC-server to listener of the port, waiting a requests
+	// Привязываем gRPC-сервер к прослушивателю, ждем появления сообщений на порту 50051.
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
 
-// Validates the authorization.
+// Validates the authorization. Подтверждение авторизации
 func valid(authorization []string) bool {
 	if len(authorization) < 1 {
 		return false
@@ -116,7 +121,7 @@ func ensureValidToken(ctx context.Context, req interface{},
 	if !valid(md["authorization"]) {
 		return nil, errInvalidToken
 	}
-	// Continue execution of handler after ensuring a valid token.
+	// Continue execution of handler after ensuring a valid token. Токен ок
 	return handler(ctx, req)
 }
 

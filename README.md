@@ -1,17 +1,16 @@
-## Service and Client - Go Implementation
+## Service and Client of mTLS gRPC
 
-## Building and Running Service
-
-In order to build, Go to ``Go`` module directory location `stream-mtls-grpc/mtls-service` and execute the following
- shell command:
+## Building and Running Service  
+Используется модель ошибок, встроенная в протокол gRPC и более развитая модель ошибок, реализованная в пакете Google API google.rpc.  
+In order to build, Go to ``Go`` module directory location `stream-mtls-grpc/mtls-service` and execute the following shell command:  
 ```
 go build -v 
 ./mtls-service
 ```   
 
-## Building and Running Client   
-
-In order to build, Go to ``Go`` module directory location `stream-mtls-grpc/mtls-client` and execute the following shell command:
+## Building and Running Client     
+Используется модель ошибок, встроенная в протокол gRPC и более развитая модель ошибок, реализованная в пакете Google API google.rpc.  
+In order to build, Go to ``Go`` module directory location `stream-mtls-grpc/mtls-client` and execute the following shell command:    
 ```
 go build -v 
 ./mtls-client
